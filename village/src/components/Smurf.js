@@ -3,7 +3,7 @@ import React from 'react';
 const Smurf = props => {
   return (
     <div className="Smurf">
-      <div className="card text-white bg-dark mb-3" >
+      <div className="card bg-light mb-3" >
         <div className="card-header">{props.name}</div>
         <div className="card-body">
           <p className="card-title">{props.id} tall</p>
