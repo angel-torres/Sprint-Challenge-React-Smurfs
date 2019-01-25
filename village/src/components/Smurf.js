@@ -3,9 +3,14 @@ import React from 'react';
 const Smurf = props => {
   return (
     <div className="Smurf">
-      <h3>{props.name}</h3>
-      <strong>{props.height} tall</strong>
-      <p>{props.age} smurf years old</p>
+      <div className="card text-white bg-dark mb-3" >
+        <div className="card-header">{props.name}</div>
+        <div className="card-body">
+          <p className="card-title">{props.id} tall</p>
+          <p className="card-text">{props.height} smurf years old</p>
+          <p className="card-text">{props.age} smurf years old</p>
+        </div>
+      </div>
     </div>
   );
 };

@@ -16,8 +16,8 @@ class SmurfForm extends Component {
     // add code to create the smurf using the api
     axios.post('http://localhost:3333/smurfs', this.state)
     .then(res => {
-      console.log(res);
-      this.props.history.push('/smurfs')
+      this.props.updateState(res.data);
+      this.props.history.push('/')
     })
     .catch(err => console.log(err))
 
@@ -36,25 +36,52 @@ class SmurfForm extends Component {
     return (
       <div className="SmurfForm">
         <form onSubmit={this.addSmurf}>
-          <input
-            onChange={this.handleInputChange}
-            placeholder="name"
-            value={this.state.name}
-            name="name"
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder="age"
-            value={this.state.age}
-            name="age"
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder="height"
-            value={this.state.height}
-            name="height"
-          />
-          <button type="submit">Add to the village</button>
+          <div class="form-group row">
+            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Name</label>
+            <div class="col-sm-10">
+              <input 
+                type="text" 
+                className="form-control form-control-lg" 
+                id="colFormLabelLg" 
+                onChange={this.handleInputChange}
+                placeholder="name"
+                value={this.state.name}
+                name="name"
+              />
+              </div>
+            </div>
+
+          <div class="form-group row">
+            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Age</label>
+            <div class="col-sm-10">
+              <input 
+                type="text" 
+                className="form-control form-control-lg" 
+                id="colFormLabelLg" 
+                onChange={this.handleInputChange}
+                placeholder="age"
+                value={this.state.age}
+                name="age"
+              />
+              </div>
+            </div>
+
+          <div class="form-group row">
+            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Height</label>
+            <div class="col-sm-10">
+              <input 
+                type="text" 
+                className="form-control form-control-lg" 
+                id="colFormLabelLg" 
+                onChange={this.handleInputChange}
+                placeholder="height"
+                value={this.state.height}
+                name="height"
+              />
+              </div>
+            </div>
+
+          <button className="btn btn-primary btn-lg" type="submit">Add to the village</button>
         </form>
       </div>
     );

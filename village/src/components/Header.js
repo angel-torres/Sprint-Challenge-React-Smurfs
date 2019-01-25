@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
   render() {
     return (
-      <div>
-        <h1>Smurfs!</h1>
-        <Link to="/smurfs">Viw Smurfs</Link>
-        <Link to="/form">Add Smurf</Link>
+      <div className="jumbotron jumbotron-fluid">
+        <h1>Smurf Village Database</h1>
+        <hr></hr>
+        <NavLink className="btn btn-secondary btn-md" to="/">Viw Smurfs</NavLink>
+        <NavLink className="btn btn-primary btn-md" to="/smurf-form">Add Smurf</NavLink>
       </div>
     )
   }
