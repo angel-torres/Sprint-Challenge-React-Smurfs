@@ -8,18 +8,28 @@ class SmurfForm extends Component {
       name: '',
       age: '',
       height: ''
-    };
+    }
   }
 
-  addSmurf = event => {
+  addUpdateSmurf = event => {
     event.preventDefault();
     // add code to create the smurf using the api
-    axios.post('http://localhost:3333/smurfs', this.state)
-    .then(res => {
-      this.props.updateState(res.data);
-      this.props.history.push('/')
-    })
-    .catch(err => console.log(err))
+    if (this.props.updating) {
+      axios.put(`http://localhost:3333/smurfs/${this.props.match.params.id}`, this.state)
+      .then( res => {
+        this.props.updateState(res.data);
+        this.props.history.push('/')
+      })
+      .catch( err => console.log(err))
+      return
+    } else {
+      axios.post('http://localhost:3333/smurfs', this.state)
+      .then(res => {
+        this.props.updateState(res.data);
+        this.props.history.push('/')
+      })
+      .catch(err => console.log(err))
+  }
 
     this.setState({
       name: '',
@@ -27,18 +37,44 @@ class SmurfForm extends Component {
       height: ''
     });
   }
+  
+  componentDidMount() {
+    if (this.props.updating) {
+      const id = this.props.match.params.id;
+      const smurf = this.props.smurfs.find(smurf => `${smurf.id}` === id);
+
+      this.setState({
+        name: smurf.name,
+        age: smurf.age,
+        height: smurf.height
+      })
+    } else {
+      this.setState({
+        name: '',
+        age: '',
+        height: ''
+      })
+    }
+  }
+
+
 
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
+    // console.log(this.props.match.params.id)
+    // console.log(this.props.smurfs.find( smurf => `${smurf.id}` === `${this.props.match.params.id}`))
+    // const id = this.props.match.params.id;
+    // const smurf = this.props.smurfs.find(smurf => `${smurf.id}` === id);
+    // console.log(smurf)
     return (
       <div className="SmurfForm">
-        <form onSubmit={this.addSmurf}>
-          <div class="form-group row">
-            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Name</label>
-            <div class="col-sm-10">
+        <form onSubmit={this.addUpdateSmurf}>
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label col-form-label-lg">Name</label>
+            <div className="col-sm-10">
               <input 
                 type="text" 
                 className="form-control form-control-lg" 
@@ -51,9 +87,9 @@ class SmurfForm extends Component {
               </div>
             </div>
 
-          <div class="form-group row">
-            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Age</label>
-            <div class="col-sm-10">
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label col-form-label-lg">Age</label>
+            <div className="col-sm-10">
               <input 
                 type="text" 
                 className="form-control form-control-lg" 
@@ -66,9 +102,9 @@ class SmurfForm extends Component {
               </div>
             </div>
 
-          <div class="form-group row">
-            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Height</label>
-            <div class="col-sm-10">
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label col-form-label-lg">Height</label>
+            <div className="col-sm-10">
               <input 
                 type="text" 
                 className="form-control form-control-lg" 
@@ -81,7 +117,7 @@ class SmurfForm extends Component {
               </div>
             </div>
 
-          <button className="btn btn-primary btn-lg" type="submit">Add to the village</button>
+          <button className="btn btn-primary btn-lg" type="submit">{this.props.updating ? "Update" : "Add to the village"}</button>
         </form>
       </div>
     );

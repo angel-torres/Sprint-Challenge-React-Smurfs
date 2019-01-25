@@ -7,8 +7,8 @@ class Header extends Component {
       <div className="jumbotron jumbotron-fluid">
         <h1>Smurf Village Database</h1>
         <hr></hr>
-        <NavLink className="btn btn-secondary btn-md" to="/">Viw Smurfs</NavLink>
-        <NavLink className="btn btn-primary btn-md" to="/smurf-form">Add Smurf</NavLink>
+        <NavLink onClick={this.props.resetForm} className="btn btn-secondary btn-md" to="/">Viw Smurfs</NavLink>
+        <NavLink onClick={this.props.resetForm} className="btn btn-primary btn-md" to="/smurf-form">Add Smurf</NavLink>
       </div>
     )
   }

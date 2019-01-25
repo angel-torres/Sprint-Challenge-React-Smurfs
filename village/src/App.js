@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
+import { Route, } from 'react-router-dom';
 
 import './App.css';
 import SmurfForm from './components/SmurfForm';
@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      updating: false,
       smurfs: [],
     };
   }
@@ -35,12 +36,26 @@ class App extends Component {
     .catch( err => console.log(err) )
   }
 
+  goToUpdateForm = (e, id) => {
+    this.props.history.push(`/smurf-form/${id}`)
+    this.setState({
+      updating: true,
+    })
+  }
+
+  resetForm = (e) => {
+    this.setState({
+      updating: false,
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <Header />
-        <Route path="/smurf-form" render={ props => <SmurfForm {...props} updateState={this.updateState} />}/>
-        <Route exact path="/" render={ props => <Smurfs {...props} deleteSmurf={this.deleteSmurf} smurfs={this.state.smurfs} />}/>
+        <Header resetForm={this.resetForm} />
+        <Route exact path="/smurf-form" render={ props => <SmurfForm {...props} updating={this.state.updating} updateState={this.updateState} />}/>
+        <Route path="/smurf-form/:id" render={ props => <SmurfForm {...props} smurfs={this.state.smurfs} updating={this.state.updating} updateState={this.updateState} />}/>
+        <Route exact path="/" render={ props => <Smurfs {...props} goToUpdateForm={this.goToUpdateForm} deleteSmurf={this.deleteSmurf} smurfs={this.state.smurfs} />}/>
         
       </div>
     );
