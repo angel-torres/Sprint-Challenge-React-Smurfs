@@ -64,11 +64,6 @@ class SmurfForm extends Component {
   };
 
   render() {
-    // console.log(this.props.match.params.id)
-    // console.log(this.props.smurfs.find( smurf => `${smurf.id}` === `${this.props.match.params.id}`))
-    // const id = this.props.match.params.id;
-    // const smurf = this.props.smurfs.find(smurf => `${smurf.id}` === id);
-    // console.log(smurf)
     return (
       <div className="SmurfForm">
         <form onSubmit={this.addUpdateSmurf}>
